@@ -182,7 +182,7 @@ install: all
 	install -m 755 $(LIBSO) $(SHLIBDIR)
 	test -d $(LIBDIR)/pkgconfig || install -m 755 -d $(LIBDIR)/pkgconfig
 	install -m 644 $(LIBPC) $(LIBDIR)/pkgconfig
-	ln -sf --relative $(SHLIBDIR)/$(LIBSO) $(LIBDIR)/$(TARGET)
+	ln -sf $(shell $(PYTHON) -c "import os.path; print os.path.relpath('$(SHLIBDIR)', '$(LIBDIR)')")/$(LIBSO) $(LIBDIR)/$(TARGET)
 
 install-pywrap: pywrap
 	test -d $(PYSITEDIR)/selinux || install -m 755 -d $(PYSITEDIR)/selinux
